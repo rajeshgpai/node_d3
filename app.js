@@ -18,6 +18,19 @@ app.get('/', function(request, response) {
 	})
 });
 
+app.get('/australia', function(request, response) {
+	response.render('australia', {
+		name: 'Pai'
+	})
+});
+
+app.get('/aus_label', function(request, response) {
+	response.render('aus-labeled', {
+		name: 'Pai'
+	})
+});
+
+
 app.listen(8001, function() {
 	console.log("Whats on your mind?");
 });

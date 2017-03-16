@@ -1,13 +1,38 @@
 <html>  
   <head>
     <title>Node Charts</title>
+    <script src="/static/js/jquery-3.1.1.min.js" charset="utf-8"></script>
+    <script src="/static/js/bootstrap.min.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/js/topojson.js"></script>
+    <script src="/static/js/d3.js" charset="utf-8"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+    <style type="text/css">
+		#states path {
+  			stroke: #fff;
+		}
+		.temperature_cold { background-color: blue; }
+.temperature_cool { background-color: green; }
+.temperature_warm { background-color: yellow; }
+.temperature_hot { background-color: orange; }
+.temperature_veryhot { background-color: red; }
+.population_none { font-style: normal; }
+.population_few { font-weight: normal; }
+.population_some { font-weight: bold; }
+.population_many { font-weight: bold; font-size: 150%; }
+.population_unknown { font-style: italic; }
+.no_longer_exists { text-decoration: line-through; }
+.still_exists { text-decoration: none; }
+.bordered_table { border-style: solid; border-width: 1px; }
+.bordered_td { border-style: solid; border-width: 1px; }
+.locationLabel {
+    font-family: arial,helvetica,'sans-serif';
+    text-align: left;
+}
+    </style>
   </head>
   <body>
   	<div class="container">
     	{{{body}}}
     </div>
-    <script src="/static/js/jquery-3.1.1.min.js" charset="utf-8"></script>
-    <script src="/static/js/bootstrap.min.js" charset="utf-8"></script>
   </body>
 </html> 

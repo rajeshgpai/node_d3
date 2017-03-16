@@ -1,0 +1,59 @@
+  <h1>Australian States coloured by Awesomeness</h1>
+    <script type="text/javascript">
+awesomeness = {"New South Wales":8, // + it's NSW, - legacy of NSW Labor 
+	"Victoria":6, // + Architecture, Food, - it's not NSW
+	"Queensland":3, // + Beaches, - it's QLD, Wally Lewis
+	"South Australia":7, // + Friends, Moonarie, - it's not NSW
+	"Western Australia":4, // + Beautiful Coastline, Mining Revenues, - delusions of seccession
+	"Tasmania": 6, // + table mountain, cheese, - weather
+	"Northern Territory": 7, // + arnhem land, cumulo nimbus clouds over Darwin, - mosquitoes
+  "Australian Capital Territory": 2
+  };
+
+var w = 960,
+    h = 600;
+var z = d3.schemeCategory10;
+var fill = d3.scaleLog()
+    .domain(d3.extent(d3.values(awesomeness)))
+    .range(["brown", "steelblue"]);
+var projection = d3.geoAzimuthalEquidistant()
+    .rotate([-135, 26])
+//.origin([135, -26])
+//		.translate([250,180])
+    .scale(800);
+var path = d3.geoPath()
+    .projection(projection);
+var svg = d3.select("body").append("svg")
+    .attr("width", w)
+    .attr("height", h);
+var states = svg.append("g")
+    .attr("id", "states");
+var g = svg.append("g")
+    //.attr("transform", "translate(" + w / 2 + "," + h / 2 + ")")
+    .append("g")
+    .attr("id", states);
+d3.json("/static/data/au-states.geojson", function(collection) {
+  states.selectAll("path")
+      .data(collection.features)
+    .enter().append("path")
+			.attr("fill", function(d) {
+         return fill(awesomeness[(d.properties["STATE_NAME"])]);
+       })
+      .attr("d", path);
+  g.selectAll("text")
+    .data(collection.features)
+    .enter().append("svg:text")
+    .text(function(d){
+        return "$" + awesomeness[(d.properties["STATE_NAME"])] + "M";
+      })
+      .attr("x", function(d){
+        return path.centroid(d)[0];
+      })
+      .attr("y", function(d){
+        return  path.centroid(d)[1];
+      })
+      .attr("text-anchor","middle")
+      .attr('font-size','12pt');
+});
+
+</script>
